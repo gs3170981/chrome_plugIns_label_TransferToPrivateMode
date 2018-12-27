@@ -1,0 +1,16 @@
+{
+	"manifest_version": 2,
+	"name": "chrome_plugIns_label_TransferToPrivateMode",
+	"version": "1.0.0",
+	"description": "【chrome】扩展插件：快速将当前标签转至隐私模式",
+	"icons": {
+		"16": "img/icon.png",
+		"48": "img/icon.png",
+		"128": "img/icon.png"
+	},
+	"permissions": [
+		"declarativeContent"
+	],
+	"homepage_url": "https://blog.csdn.net/Mcky_Love",
+	"background": {}
+}

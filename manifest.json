@@ -9,8 +9,12 @@
 		"128": "img/icon.png"
 	},
 	"permissions": [
-		"declarativeContent"
+		"declarativeContent",
+		"contextMenus",
+		"tabs"
 	],
 	"homepage_url": "https://blog.csdn.net/Mcky_Love",
-	"background": {}
+	"background": {
+		"scripts": ["js/index.js"]
+	}
 }

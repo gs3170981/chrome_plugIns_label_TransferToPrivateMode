@@ -8,11 +8,7 @@
 		"48": "img/icon.png",
 		"128": "img/icon.png"
 	},
-	"permissions": [
-		"declarativeContent",
-		"contextMenus",
-		"tabs"
-	],
+	"permissions": ["notifications", "contextMenus", "tabs"],
 	"homepage_url": "https://blog.csdn.net/Mcky_Love",
 	"background": {
 		"scripts": ["js/index.js"]

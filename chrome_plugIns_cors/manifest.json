@@ -1,0 +1,20 @@
+{
+	"manifest_version": 2,
+	"name": "chrome_plugIns_cors",
+	"version": "1.0.0",
+	"description": "【chrome】扩展插件：解决跨域",
+	"icons": {
+		"16": "img/icon.png",
+		"48": "img/icon.png",
+		"128": "img/icon.png"
+	},
+	"permissions": [
+		"webRequest",
+		"webRequestBlocking",
+		"<all_urls>"
+	],
+	"homepage_url": "https://blog.csdn.net/Mcky_Love",
+	"background": {
+		"scripts": ["js/index.js", "js/jquery.min.js"]
+	}
+}

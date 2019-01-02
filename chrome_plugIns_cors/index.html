@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+  <title>Test</title>
+</head>
+
+<body>
+</body>
+<script>
+  let data = {
+    asd: 'lalala'
+  }
+  $.ajax({
+    type: 'get',
+    // url: 'https://web-api.juejin.im/gptzllpbev',
+    url: '/v1/getListByLastTime?uid=59fbe6c66fb9a045186a159a&client_id=1546398254217&token=eyJhY2Nlc3NfdG9rZW4iOiJjRWpYVDBVcFZOVEZybnpaIiwicmVmcmVzaF90b2tlbiI6Ilp1WHRtbVRmSTBGU1NzMEEiLCJ0b2tlbl90eXBlIjoibWFjIiwiZXhwaXJlX2luIjoyNTkyMDAwfQ%3D%3D&src=web&pageNum=1',
+    contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+    // contentType: 'application/json;charset=UTF-8',
+    // data: JSON.stringify(data),
+    data: data,
+    // data: '{"current_page":1,"start_date":"2017-10-01","page_size":10,"end_date":"2017-12-20"}',
+    success: (res) => {
+      console.log(res)
+    },
+    error: res => {
+      console.log(res)
+    }
+  })
+  // fetch(
+  //   'https://xiaoce-timeline-api-ms.juejin.im/v1/getListByLastTime?uid=59fbe6c66fb9a045186a159a&client_id=1546398254217&token=eyJhY2Nlc3NfdG9rZW4iOiJjRWpYVDBVcFZOVEZybnpaIiwicmVmcmVzaF90b2tlbiI6Ilp1WHRtbVRmSTBGU1NzMEEiLCJ0b2tlbl90eXBlIjoibWFjIiwiZXhwaXJlX2luIjoyNTkyMDAwfQ%3D%3D&src=web&pageNum=1'
+  // ).then(response => {
+  //   if (response.status === 200) {
+  //     return response.json();
+  //   }
+  // }).then(json => {
+  //   console.log(json);
+  // }).catch(err => {
+  //   console.log(err);
+  // });
+</script>
+
+</html>

@@ -2,46 +2,89 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
   <title>Test</title>
 </head>
 
-<body>
-</body>
+<body></body>
 <script>
-  let data = {
-    asd: 'lalala'
-  }
-  $.ajax({
-    type: 'get',
-    // url: 'https://web-api.juejin.im/gptzllpbev',
-    url: '/v1/getListByLastTime?uid=59fbe6c66fb9a045186a159a&client_id=1546398254217&token=eyJhY2Nlc3NfdG9rZW4iOiJjRWpYVDBVcFZOVEZybnpaIiwicmVmcmVzaF90b2tlbiI6Ilp1WHRtbVRmSTBGU1NzMEEiLCJ0b2tlbl90eXBlIjoibWFjIiwiZXhwaXJlX2luIjoyNTkyMDAwfQ%3D%3D&src=web&pageNum=1',
-    contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
-    // contentType: 'application/json;charset=UTF-8',
-    // data: JSON.stringify(data),
-    data: data,
-    // data: '{"current_page":1,"start_date":"2017-10-01","page_size":10,"end_date":"2017-12-20"}',
-    success: (res) => {
-      console.log(res)
+  // 如修改，请重启扩展
+  const CHROME_PLUGINS_CORS = [{
+    key: '/operation/',
+    val: 'http://zmcreditmng-zth-7.dev.zhimaxy.net/operation/'
+  }]
+  let _chrome_plugIns_cors_is = true
+  const AJAX = obj => {
+    let url = obj.url
+    let _chrome_plugIns_cors = JSON.stringify(CHROME_PLUGINS_CORS)
+
+    if (obj.contentType.includes("application/json")) {
+      let data = JSON.stringify(obj.data);
+      url += url.includes("?") ? `&_DATA=${data}` : `?_DATA=${data}`;
+    }
+    url += url.includes("?") ? `&_chrome_plugIns_cors=${_chrome_plugIns_cors}` :
+      `?_chrome_plugIns_cors=${_chrome_plugIns_cors}`;
+    $.ajax({
+      type: obj.type,
+      // url: 'https://web-api.juejin.im/gptzllpbev',
+      url: url,
+      // contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+      contentType: obj.contentType,
+      // data: JSON.stringify(data),
+      data: obj.data,
+      // data: '{"current_page":1,"start_date":"2017-10-01","page_size":10,"end_date":"2017-12-20"}',
+      success: res => obj.success(res),
+      error: res => {
+        let item = CHROME_PLUGINS_CORS.find(item => (obj.url.includes(item.key)))
+        let KEY = item.val + obj.url.replace(item.key, '')
+        let call = res => {
+          let data = JSON.parse(res.data)
+          if (data.KEY === KEY) {
+            data.is ? obj.success(data.data) : obj.error(data.data)
+            window.removeEventListener('message', call, false)
+          }
+        }
+        // let message = obj.url.replace(obj.url.substring(0, obj.url.indexOf(obj.key) + obj.key.length), obj.val)
+        // if (!_chrome_plugIns_cors_is) { // 拒绝重复监听
+        //   return
+        // }
+        // _chrome_plugIns_cors_is = false
+        window.addEventListener('message', call, false);
+      }
+    });
+  };
+
+  AJAX({
+    type: "post",
+    url: "/operation/strategy/queryStrategyCategorys.json",
+    contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+    data: {
+      currentPage: 1,
+      pageSize: 15
+    },
+    success: res => {
+      console.log(res);
+    },
+    error: res => {}
+  });
+  AJAX({
+    type: "post",
+    url: "/operation/strategy/querylist.json",
+    contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+    data: {
+      currentPage: 1,
+      pageSize: 15
+    },
+    success: res => {
+      console.log(res);
     },
     error: res => {
-      console.log(res)
+      console.error(res);
     }
-  })
-  // fetch(
-  //   'https://xiaoce-timeline-api-ms.juejin.im/v1/getListByLastTime?uid=59fbe6c66fb9a045186a159a&client_id=1546398254217&token=eyJhY2Nlc3NfdG9rZW4iOiJjRWpYVDBVcFZOVEZybnpaIiwicmVmcmVzaF90b2tlbiI6Ilp1WHRtbVRmSTBGU1NzMEEiLCJ0b2tlbl90eXBlIjoibWFjIiwiZXhwaXJlX2luIjoyNTkyMDAwfQ%3D%3D&src=web&pageNum=1'
-  // ).then(response => {
-  //   if (response.status === 200) {
-  //     return response.json();
-  //   }
-  // }).then(json => {
-  //   console.log(json);
-  // }).catch(err => {
-  //   console.log(err);
-  // });
+  });
 </script>
 
 </html>

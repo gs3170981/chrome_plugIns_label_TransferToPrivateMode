@@ -11,10 +11,11 @@
 	"permissions": [
 		"webRequest",
 		"webRequestBlocking",
+		"tabs",
 		"<all_urls>"
 	],
 	"homepage_url": "https://blog.csdn.net/Mcky_Love",
 	"background": {
-		"scripts": ["js/index.js", "js/jquery.min.js"]
+		"scripts": ["js/jquery.min.js", "js/index.js"]
 	}
 }

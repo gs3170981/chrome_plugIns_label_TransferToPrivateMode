@@ -29,6 +29,7 @@ const WATCH = {
   }
 }
 const INJECTION = obj => {
+  obj.data = typeof obj.data === 'string' ? obj.data.replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/[\r\n]/g, "") : obj.data
   chrome.tabs.executeScript(obj.tabRes[0].id, {
     code: `window.postMessage('${JSON.stringify(obj)}', '${
       obj.tabRes[0].url
@@ -65,7 +66,7 @@ chrome.webRequest.onBeforeRequest.addListener( // 监听当前ajax
       tabRes => {
         WATCH.init(_chrome_plugIns_cors) // 监听下面的ajax
         if (!tabRes || !tabRes[0]) { // 找不到tab标签则不监听
-          console.error('标签未找到！')
+          console.error('标签未找到, 请重试!')
           return
         }
         if (netRes.requestBody.formData) {
@@ -99,10 +100,9 @@ chrome.webRequest.onBeforeRequest.addListener( // 监听当前ajax
         });
       }
     );
-    // debugger
     return {
       // cancel: true
-      redirectUrl: "javascript:"
+      // redirectUrl: "javascript:"
     };
   }, {
     urls: ["*://127.0.0.1/*", "*://localhost/*"]

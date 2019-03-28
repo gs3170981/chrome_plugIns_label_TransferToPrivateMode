@@ -73,8 +73,8 @@ chrome.webRequest.onBeforeRequest.addListener( // 监听当前ajax
           contentType = "application/x-www-form-urlencoded;charset=UTF-8";
           data = netRes.requestBody.formData;
           Object.keys(data).forEach(key => {
-            data[key] = data[key] + "";
-          });
+            data[key] = data[key] + ""
+          })
         } else {
           contentType = "application/json;charset=UTF-8";
           // TODO 约定值为_DATA
